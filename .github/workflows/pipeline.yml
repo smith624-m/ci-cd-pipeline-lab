@@ -17,11 +17,14 @@ jobs:
       with:
         python-version: "3.10"
 
-    - name: Install dependencies
-      run: pip install -r requirements.txt || true
+    - name: Run unit tests
+      run: python -m unittest discover
 
-    - name: Run tests
-      run: python -m unittest discover || echo "No tests found"
+    - name: Build Docker image
+      run: docker build -t cicd-pipeline-demo .
+
+    - name: Test Docker container
+      run: docker run cicd-pipeline-demo
 
     - name: Deploy step
-      run: echo "Deploying application..."
+      run: echo "Simulated deployment completed successfully."
